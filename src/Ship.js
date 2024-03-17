@@ -28,5 +28,5 @@ export default function Ship(type) {
     return hits === length;
   };
 
-  return { length, hit, isSunk };
+  return { length, hit, isSunk, type };
 }
