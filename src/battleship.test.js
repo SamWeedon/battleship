@@ -1,4 +1,5 @@
 import Ship from "./Ship.js";
+import Gameboard from "./Gameboard.js";
 
 // tests for Ship
 test("hit() and isSunk() methods", () => {
@@ -19,7 +20,10 @@ test("length property", () => {
 });
 
 // tests for Gameboard
-test("", () => {
+test("gameboard populates normally", () => {
   expect(Gameboard().squares.length).toBe(100);
+  expect(Gameboard().squares[0].coordinate).toEqual([0, 0]);
+  expect(Gameboard().squares[10].coordinate).toEqual([1, 0]);
 });
+
 // tests for Player
