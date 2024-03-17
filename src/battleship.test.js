@@ -49,4 +49,19 @@ test("receiving attacks", () => {
   board1.receiveAttack([4, 0]);
   expect(board1.squares[40].miss).toBe(true);
 });
+
+test("game over status", () => {
+  const board1 = Gameboard();
+  board1.placeShip("destroyer", [0, 0], "horizontal");
+  board1.placeShip("destroyer", [1, 0], "vertical");
+
+  board1.receiveAttack([0, 0]);
+  board1.receiveAttack([0, 1]);
+  expect(board1.allSunk()).toBe(false);
+
+  board1.receiveAttack([1, 0]);
+  board1.receiveAttack([2, 0]);
+  expect(board1.allSunk()).toBe(true);
+});
+
 // tests for Player

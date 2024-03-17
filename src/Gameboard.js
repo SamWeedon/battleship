@@ -1,6 +1,9 @@
 import Ship from "./Ship.js";
 
 export default function Gameboard() {
+  let shipTotal = 0;
+  let sunkTotal = 0;
+
   // build board
   let squares = [];
   for (let i = 0; i < 10; i++) {
@@ -28,18 +31,24 @@ export default function Gameboard() {
         squares[coordinateToIndex(coordinate) + i * 10].occupiedBy = ship;
       }
     }
+    shipTotal++;
   };
 
   const receiveAttack = function (coordinate) {
     const attackedSquare = squares[coordinateToIndex(coordinate)];
     if (attackedSquare.occupiedBy) {
       attackedSquare.occupiedBy.hit();
+      if (attackedSquare.occupiedBy.isSunk()) sunkTotal++;
     } else {
       attackedSquare.miss = true;
     }
   };
 
-  return { squares, placeShip, receiveAttack };
+  const allSunk = function () {
+    return shipTotal === sunkTotal;
+  };
+
+  return { squares, placeShip, receiveAttack, allSunk };
 }
 
 function Node(row, column) {
