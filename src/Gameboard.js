@@ -30,9 +30,18 @@ export default function Gameboard() {
     }
   };
 
-  return { squares, placeShip };
+  const receiveAttack = function (coordinate) {
+    const attackedSquare = squares[coordinateToIndex(coordinate)];
+    if (attackedSquare.occupiedBy) {
+      attackedSquare.occupiedBy.hit();
+    } else {
+      attackedSquare.miss = true;
+    }
+  };
+
+  return { squares, placeShip, receiveAttack };
 }
 
 function Node(row, column) {
-  return { occupiedBy: undefined, coordinate: [row, column] };
+  return { occupiedBy: undefined, coordinate: [row, column], miss: false };
 }

@@ -38,4 +38,15 @@ test("placing ships", () => {
   expect(board1.squares[20].occupiedBy.type).toBe("destroyer");
   expect(board1.squares[30].occupiedBy?.type).toBe(undefined);
 });
+
+test("receiving attacks", () => {
+  const board1 = Gameboard();
+  board1.placeShip("destroyer", [0, 0], "horizontal");
+  board1.receiveAttack([0, 0]);
+  board1.receiveAttack([0, 1]);
+  expect(board1.squares[0].occupiedBy.isSunk()).toBe(true);
+
+  board1.receiveAttack([4, 0]);
+  expect(board1.squares[40].miss).toBe(true);
+});
 // tests for Player
