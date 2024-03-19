@@ -74,6 +74,14 @@ test("taking turns", () => {
   computer.board.placeShip("destroyer", [0, 0], "horizontal");
 
   user.takeTurn(computer, [0, 0]);
-  //computer.takeTurn(user);
   expect(computer.board.squares[0].occupiedBy.getHits()).toEqual(1);
+
+  let turnTaken = false;
+  computer.takeTurn(user);
+  for (let square of user.board.squares) {
+    if (square.miss || square.hit) {
+      turnTaken = true;
+    }
+  }
+  expect(turnTaken).toBe(true);
 });
