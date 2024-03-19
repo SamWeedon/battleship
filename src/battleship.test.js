@@ -1,5 +1,6 @@
 import Ship from "./Ship.js";
 import Gameboard from "./Gameboard.js";
+import Player from "./Player.js";
 
 // tests for Ship
 test("hit() and isSunk() methods", () => {
@@ -65,3 +66,14 @@ test("game over status", () => {
 });
 
 // tests for Player
+test("taking turns", () => {
+  const user = Player("user");
+  const computer = Player("computer");
+
+  user.board.placeShip("destroyer", [0, 0], "horizontal");
+  computer.board.placeShip("destroyer", [0, 0], "horizontal");
+
+  user.takeTurn(computer, [0, 0]);
+  //computer.takeTurn(user);
+  expect(computer.board.squares[0].occupiedBy.getHits()).toEqual(1);
+});

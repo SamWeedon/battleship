@@ -38,6 +38,7 @@ export default function Gameboard() {
     const attackedSquare = squares[coordinateToIndex(coordinate)];
     if (attackedSquare.occupiedBy) {
       attackedSquare.occupiedBy.hit();
+      attackedSquare.hit = true;
       if (attackedSquare.occupiedBy.isSunk()) sunkTotal++;
     } else {
       attackedSquare.miss = true;
@@ -48,9 +49,14 @@ export default function Gameboard() {
     return shipTotal === sunkTotal;
   };
 
-  return { squares, placeShip, receiveAttack, allSunk };
+  return { squares, placeShip, receiveAttack, allSunk, coordinateToIndex };
 }
 
 function Node(row, column) {
-  return { occupiedBy: undefined, coordinate: [row, column], miss: false };
+  return {
+    occupiedBy: undefined,
+    coordinate: [row, column],
+    miss: false,
+    hit: false,
+  };
 }
